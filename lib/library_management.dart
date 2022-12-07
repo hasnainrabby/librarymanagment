@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:librarymanagment/user_details/user_details.dart';
 
 class LibraryManagement extends StatefulWidget {
   const LibraryManagement({Key? key}) : super(key: key);
@@ -145,34 +145,25 @@ void login(String username, String password,BuildContext context) async {
 
       print(data['token']);
       print("Account login successfully");
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>UserDetails()));
+      final snackBar = SnackBar(
+          duration: Duration(milliseconds: 900),
+          content: Text("Successfully Login!",textAlign: TextAlign.center,),
+          backgroundColor: Colors.grey.shade500,);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => UserDetails()));
       
     }
     else{
       print('Login Failed');
+      final snackBar = SnackBar(
+        duration: Duration(milliseconds: 900),
+        content: Text("Please Enter your username & password!",textAlign: TextAlign.center,),
+        backgroundColor: Colors.grey.shade500,);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
   catch(e) {
     print(e.toString());
-  }
-}
-
-//User Details Route
-class UserDetails extends StatefulWidget {
-  const UserDetails({Key? key}) : super(key: key);
-
-  @override
-  State<UserDetails> createState() => _UserDetailsState();
-}
-
-class _UserDetailsState extends State<UserDetails> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("User Details"),
-      ),
-    );
   }
 }
 
